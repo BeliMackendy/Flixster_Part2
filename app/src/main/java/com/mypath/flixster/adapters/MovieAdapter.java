@@ -1,11 +1,13 @@
 package com.mypath.flixster.adapters;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -14,10 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.mypath.flixster.DetailActivity;
 import com.mypath.flixster.R;
 import com.mypath.flixster.models.Movie;
 
 import com.bumptech.glide.request.target.Target;
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -122,7 +127,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return movieList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
        View view ;
        TextView tvTitle;
        TextView tvOverview;
@@ -135,10 +140,28 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             tvOverview = view.findViewById(R.id.tvOverview);
             ivMovie = view.findViewById(R.id.ivMovie);
 
+            view.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            // gets item position
+            int position = getAdapterPosition();
+
+            // make sure the position is valid, i.e. actually exists in the view
+            if(position!=RecyclerView.NO_POSITION){
+                // get the movie at the position, this won't work if the class is static
+                Movie movie = movieList.get(position);
+
+                Intent i = new Intent(view.getContext(), DetailActivity.class);
+                i.putExtra("movie", Parcels.wrap(movie));
+                view.getContext().startActivity(i);
+            }
         }
     }
 
-    public static class ViewHolder2 extends RecyclerView.ViewHolder{
+    public class ViewHolder2 extends RecyclerView.ViewHolder implements View.OnClickListener{
        View view ;
 
        ImageView ivMovie;
@@ -149,6 +172,25 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             ivMovie = view.findViewById(R.id.ivMovieStar);
 
+            view.setOnClickListener(this);
+
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            // gets item position
+            int position = getAdapterPosition();
+
+            // make sure the position is valid, i.e. actually exists in the view
+            if(position!=RecyclerView.NO_POSITION){
+                // get the movie at the position, this won't work if the class is static
+                Movie movie = movieList.get(position);
+
+                Intent i = new Intent(view.getContext(), DetailActivity.class);
+                i.putExtra("movie", Parcels.wrap(movie));
+                view.getContext().startActivity(i);
+            }
         }
     }
 }
