@@ -1,5 +1,6 @@
 package com.mypath.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -189,7 +191,8 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 Intent i = new Intent(view.getContext(), DetailActivity.class);
                 i.putExtra("movie", Parcels.wrap(movie));
-                view.getContext().startActivity(i);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) view.getContext(), ivMovie, "detail");
+                view.getContext().startActivity(i,options.toBundle());
             }
         }
     }

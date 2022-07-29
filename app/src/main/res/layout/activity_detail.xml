@@ -9,6 +9,7 @@
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/player"
         android:layout_width="match_parent"
+        android:transitionName="detail"
         android:layout_height="250dp" />
 
     <TextView

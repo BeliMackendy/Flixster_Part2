@@ -84,8 +84,6 @@ public class DetailActivity extends YouTubeBaseActivity {
 
             }
         });
-
-
     }
 
     private void initialYoutube(String youtubekey) {
@@ -95,6 +93,7 @@ public class DetailActivity extends YouTubeBaseActivity {
 
                 // do any work here to cue video, play video, etc.
                 youTubePlayer.cueVideo(youtubekey);
+
             }
 
             @Override
