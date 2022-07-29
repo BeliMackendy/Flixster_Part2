@@ -92,7 +92,11 @@ public class DetailActivity extends YouTubeBaseActivity {
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
 
                 // do any work here to cue video, play video, etc.
-                youTubePlayer.cueVideo(youtubekey);
+                if(movie.getVoteAverage()>5)
+                    youTubePlayer.loadVideo(youtubekey);
+                else
+                    youTubePlayer.cueVideo(youtubekey);
+
 
             }
 
