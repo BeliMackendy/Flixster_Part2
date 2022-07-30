@@ -61,10 +61,10 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder.getItemViewType() == IMAGE) {
             ViewHolder2 holder2 = (ViewHolder2) holder;
 
-            int orientation =holder2.view.getResources().getConfiguration().orientation;
+            int orientation =holder2.itemView.getResources().getConfiguration().orientation;
 
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                Glide.with(holder2.view.getContext())
+                Glide.with(holder2.itemView.getContext())
                         .load(movie.getPosterPath())
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .placeholder(R.drawable.ic_baseline_local_movies_24)
@@ -72,7 +72,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         .transform(new RoundedCorners(20))
                         .into(holder2.ivMovie);
             } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                Glide.with(holder2.view.getContext())
+                Glide.with(holder2.itemView.getContext())
                         .load(movie.getBackdropPath())
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .placeholder(R.drawable.ic_baseline_local_movies_24)
@@ -88,13 +88,13 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             holder1.tvTitle.setText(movie.getTitle());
             holder1.tvOverview.setText(movie.getOverview());
 
-            holder1.tvTitle.setTypeface(ResourcesCompat.getFont(holder1.view.getContext(),R.font.berkshire_swash));
-            holder1.tvOverview.setTypeface(ResourcesCompat.getFont(holder1.view.getContext(),R.font.aclonica));
+            holder1.tvTitle.setTypeface(ResourcesCompat.getFont(holder1.itemView.getContext(),R.font.berkshire_swash));
+            holder1.tvOverview.setTypeface(ResourcesCompat.getFont(holder1.itemView.getContext(),R.font.aclonica));
 
-            int orientation =holder1.view.getResources().getConfiguration().orientation;
+            int orientation =holder1.itemView.getResources().getConfiguration().orientation;
 
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                Glide.with(holder1.view.getContext())
+                Glide.with(holder1.itemView.getContext())
                         .load(movie.getPosterPath())
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .placeholder(R.drawable.ic_baseline_local_movies_24)
@@ -102,7 +102,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         .transform(new RoundedCorners(20))
                         .into(holder1.ivMovie);
             } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                Glide.with(holder1.view.getContext())
+                Glide.with(holder1.itemView.getContext())
                         .load(movie.getBackdropPath())
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .placeholder(R.drawable.ic_baseline_local_movies_24)
@@ -130,19 +130,17 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-       View view ;
        TextView tvTitle;
        TextView tvOverview;
        ImageView ivMovie;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
-            tvTitle = view.findViewById(R.id.tvTitle);
-            tvOverview = view.findViewById(R.id.tvOverview);
-            ivMovie = view.findViewById(R.id.ivMovie);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvOverview = itemView.findViewById(R.id.tvOverview);
+            ivMovie = itemView.findViewById(R.id.ivMovie);
 
-            view.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -164,17 +162,15 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder2 extends RecyclerView.ViewHolder implements View.OnClickListener{
-       View view ;
-
        ImageView ivMovie;
 
         public ViewHolder2(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
 
-            ivMovie = view.findViewById(R.id.ivMovieStar);
 
-            view.setOnClickListener(this);
+            ivMovie = itemView.findViewById(R.id.ivMovieStar);
+
+            itemView.setOnClickListener(this);
 
 
         }
