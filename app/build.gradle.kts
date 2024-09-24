@@ -41,4 +41,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.asynchttpclient)
+    implementation(libs.com.github.bumptech.glide.glide2)
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor(libs.compiler)
 }
