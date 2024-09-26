@@ -1,6 +1,7 @@
 package com.example.flixster.adapters;
 
 import android.content.res.Configuration;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.flixster.GlideApp;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
@@ -41,14 +44,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         String images = movie.getPosterPath();
         int orientation = holder.itemView.getContext().getResources().getConfiguration().orientation;
+        int x= Target.SIZE_ORIGINAL;
+        int y = Target.SIZE_ORIGINAL;
 
         if(orientation== Configuration.ORIENTATION_LANDSCAPE)
         {
             images = movie.getBackdropPath();
+            x=900;
+            y=500;
         }
 
         GlideApp.with(holder.itemView.getContext())
                 .load(images)
+                .placeholder(R.drawable.movie_placeholder)
+                .override(x, y)
+                .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade(2000))
                 .into(holder.ivPoster);
 
     }
