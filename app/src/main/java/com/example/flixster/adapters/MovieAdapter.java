@@ -130,7 +130,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public int getItemViewType(int position) {
         int fullbackdrop = 0;
 
-        if (movies.get(position).getVoteAverage() >=6) {
+        if (movies.get(position).getVoteAverage() >=5) {
             return 1;
         }
 
