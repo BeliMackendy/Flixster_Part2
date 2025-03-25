@@ -1,11 +1,13 @@
 package com.example.flixster.adapters;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,9 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.target.Target;
+import com.example.flixster.DetailActivity;
 import com.example.flixster.GlideApp;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -106,6 +111,15 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .transition(DrawableTransitionOptions.withCrossFade(2000))
                     .into(v1.ivPoster);
 
+            v1.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i  = new Intent(v1.container.getContext(), DetailActivity.class);
+                    i.putExtra("movie", Parcels.wrap(movie));
+                    v1.container.getContext().startActivity(i);
+                }
+            });
+
         } else {
             ViewHolder2 v2 = (ViewHolder2) holder;
             int x = Target.SIZE_ORIGINAL;
@@ -118,6 +132,15 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade(2000))
                     .into(v2.ivbackdrop);
+
+            v2.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i  = new Intent(v2.container.getContext(), DetailActivity.class);
+                    i.putExtra("movie", Parcels.wrap(movie));
+                    v2.container.getContext().startActivity(i);
+                }
+            });
         }
     }
 
@@ -141,22 +164,26 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            container = itemView.findViewById(R.id.container);
         }
     }
 
     public class ViewHolder2 extends RecyclerView.ViewHolder {
 
         ImageView ivbackdrop;
+        RelativeLayout container;
 
         public ViewHolder2(@NonNull View itemView) {
             super(itemView);
             ivbackdrop = itemView.findViewById(R.id.ivbackdrop);
+            container = itemView.findViewById(R.id.container);
         }
     }
 }
