@@ -9,6 +9,7 @@
 
     <ImageView
         android:id="@+id/ivPoster"
+        android:transitionName="detail"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars" />

@@ -1,5 +1,6 @@
 package com.example.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -116,10 +118,10 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onClick(View view) {
                     Intent i  = new Intent(v1.container.getContext(), DetailActivity.class);
                     i.putExtra("movie", Parcels.wrap(movie));
-                    v1.container.getContext().startActivity(i);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v1.container.getContext(),(View)v1.container,"detail");
+                    v1.container.getContext().startActivity(i,options.toBundle());
                 }
             });
-
         } else {
             ViewHolder2 v2 = (ViewHolder2) holder;
             int x = Target.SIZE_ORIGINAL;
@@ -138,7 +140,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 public void onClick(View view) {
                     Intent i  = new Intent(v2.container.getContext(), DetailActivity.class);
                     i.putExtra("movie", Parcels.wrap(movie));
-                    v2.container.getContext().startActivity(i);
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v2.container.getContext(),(View)v2.container,"detail");
+
+                    v2.container.getContext().startActivity(i,options.toBundle());
                 }
             });
         }
