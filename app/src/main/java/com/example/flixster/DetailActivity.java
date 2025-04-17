@@ -31,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tv_Overview;
     RatingBar ratingBar;
     YouTubePlayerView youTubePlayerView;
+    Movie movie;
 
     private static final String VIDEO_URL = "https://api.themoviedb.org/3/movie/%d/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
@@ -48,7 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         tv_Overview = findViewById(R.id.tv_Overview);
         ratingBar = findViewById(R.id.ratingBar);
 
-        Movie  movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("movie"));
+        movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("movie"));
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(String.format(VIDEO_URL, movie.getMovieId()), new JsonHttpResponseHandler() {
@@ -56,13 +57,13 @@ public class DetailActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 try {
                     JSONArray results = json.jsonObject.getJSONArray("results");
-                    if(results.length()==0)
+                    if (results.length() == 0)
                         return;
 
                     String youtubkey = results.getJSONObject(0).getString("key");
                     InitialYoutube(youtubkey);
                 } catch (JSONException e) {
-                    Log.e("DetailActivity", "Failed to pass Json: ",e );
+                    Log.e("DetailActivity", "Failed to pass Json: ", e);
                 }
             }
 
@@ -73,7 +74,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-
         tv_Title.setText(movie.getTitle());
         tv_Overview.setText(movie.getOverview());
         ratingBar.setRating((float) movie.getVoteAverage());
@@ -82,11 +82,10 @@ public class DetailActivity extends AppCompatActivity {
         getLifecycle().addObserver(youTubePlayerView);
 
 
-
     }
 
     private void InitialYoutube(String youtubkey) {
-        Log.d("DetailActivity", "onSuccess: "+youtubkey);
+        Log.d("DetailActivity", "onSuccess: " + youtubkey);
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
