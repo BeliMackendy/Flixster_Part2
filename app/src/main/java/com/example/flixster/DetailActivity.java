@@ -90,7 +90,10 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 String videoId = youtubkey;
-                youTubePlayer.cueVideo(videoId, 0);
+                if (movie.getVoteAverage() >= 5)
+                    youTubePlayer.loadVideo(videoId, 0);
+                else
+                    youTubePlayer.cueVideo(videoId, 0);
             }
         });
     }
