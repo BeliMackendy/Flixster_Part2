@@ -11,9 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.databinding.DataBindingUtil;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.flixster.databinding.ActivityDetailBinding;
 import com.example.flixster.models.Movie;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -33,21 +35,29 @@ public class DetailActivity extends AppCompatActivity {
     YouTubePlayerView youTubePlayerView;
     Movie movie;
 
+    private ActivityDetailBinding binding;
+
     private static final String VIDEO_URL = "https://api.themoviedb.org/3/movie/%d/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        tv_Title = findViewById(R.id.tv_Title);
-        tv_Overview = findViewById(R.id.tv_Overview);
-        ratingBar = findViewById(R.id.ratingBar);
+//        setContentView(R.layout.activity_detail);
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
+//        tv_Title = findViewById(R.id.tv_Title);
+//        tv_Overview = findViewById(R.id.tv_Overview);
+//        ratingBar = findViewById(R.id.ratingBar);
+
+        tv_Title = binding.tvTitle;
+        tv_Overview = binding.tvOverview;
+        ratingBar = binding.ratingBar;
 
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra("movie"));
 

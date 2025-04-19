@@ -6,6 +6,10 @@ android {
     namespace = "com.example.flixster"
     compileSdk = 34
 
+    buildFeatures {
+        dataBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.flixster"
         minSdk = 21
